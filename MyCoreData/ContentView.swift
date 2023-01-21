@@ -13,6 +13,8 @@ struct ContentView: View {
     // Contextが格納されている
     @Environment(\.managedObjectContext) var viewContext
     
+    @State var name = ""
+    
     // データを要求
     // sortDescriptors: 取得したデータの並びを指定。[]指定なし
     // 取得したデータは、humansに格納
@@ -28,15 +30,13 @@ struct ContentView: View {
                 }
             }
             
-            Button(action: addHuman) {
-                Text("人間を増やす")
-            }
+            TextField("人間の名前", text: $name, onCommit: addHuman)
         }
     }
     
     func addHuman() {
         let newHuman = Human(context: viewContext)
-        newHuman.name = "五十嵐"
+        newHuman.name = name
         
         do {
             // Context ⇨ PersistentStore ⇨ DB
@@ -45,6 +45,9 @@ struct ContentView: View {
             // アプリを落とす
             fatalError("セーブに失敗")
         }
+        
+        // 完了したら、TextFieldをクリア
+        self.name = ""
     }
 }
 
