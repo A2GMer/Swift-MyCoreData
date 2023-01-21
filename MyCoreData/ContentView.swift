@@ -27,6 +27,23 @@ struct ContentView: View {
                     Text(human.name!)
                 }
             }
+            
+            Button(action: addHuman) {
+                Text("人間を増やす")
+            }
+        }
+    }
+    
+    func addHuman() {
+        let newHuman = Human(context: viewContext)
+        newHuman.name = "五十嵐"
+        
+        do {
+            // Context ⇨ PersistentStore ⇨ DB
+            try viewContext.save()
+        } catch {
+            // アプリを落とす
+            fatalError("セーブに失敗")
         }
     }
 }
