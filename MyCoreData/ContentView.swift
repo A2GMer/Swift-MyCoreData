@@ -21,13 +21,13 @@ struct ContentView: View {
     var humans: FetchedResults<Human>
     
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundColor(.accentColor)
-            Text("Hello, world!")
+        List {
+            ForEach(humans) { human in
+                if ((human.name?.isEmpty) == false) {
+                    Text(human.name!)
+                }
+            }
         }
-        .padding()
     }
 }
 
