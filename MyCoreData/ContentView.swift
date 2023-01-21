@@ -6,8 +6,13 @@
 //
 
 import SwiftUI
+import CoreData
 
 struct ContentView: View {
+    // managedObjectContextから取り出した値をviewContextに格納
+    // Contextが格納されている
+    @Environment(\.managedObjectContext) var viewContext
+    
     var body: some View {
         VStack {
             Image(systemName: "globe")
